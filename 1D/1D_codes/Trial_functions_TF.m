@@ -8,8 +8,8 @@ NX=101; % the number of nodes
 %xm1 = xm + deltax;
 ndis = 100;                               % for discretizing steps
 
-trialfunction=1; % 1 for linear spline, 2 for sinc
-npTF=3;          % number of points in scheme (3, 5, 7)
+trialfunction=2; % 1 for linear spline, 2 for sinc
+npTF=7;          % number of points in scheme (3, 5, 7)
 
 % definition of T and H matrix
 
@@ -46,7 +46,8 @@ elseif trialfunction == 2;                  %enter 2 for sinc interpolation
         if i == 0;
             phimderiv(i+1+ndis)=0;
         else
-            phimderiv(i+1+ndis) = pi/deltax*(cos(pi*xx)/xx) - sin(pi*xx)/(xx*xx);
+            %phimderiv(i+1+ndis) = (phim(i+2+ndis)-phim(i+1+ndis))/(deltax/ndis);
+            phimderiv(i+1+ndis) = pi*cos(pi*xx)/(pi*xx) - sin(pi*xx)/(pi*xx*xx); %Analytical solution
         end
         end
     
@@ -58,7 +59,7 @@ elseif trialfunction == 2;                  %enter 2 for sinc interpolation
         if i == 0;
            phimderiv(i+1+2*ndis)=0;
         else
-            phimderiv(i+1+2*ndis) = pi/deltax*(cos(pi*xx)/xx) - sin(pi*xx)/(xx*xx);
+            phimderiv(i+1+2*ndis) = pi*cos(pi*xx)/(pi*xx) - sin(pi*xx)/(pi*xx*xx);
     
         end
         end
@@ -71,7 +72,7 @@ elseif trialfunction == 2;                  %enter 2 for sinc interpolation
         if i == 0;
            phimderiv(i+1+3*ndis)=0;
         else
-            phimderiv(i+1+3*ndis) = pi/deltax*(cos(pi*xx)/xx) - sin(pi*xx)/(xx*xx);
+            phimderiv(i+1+3*ndis) = pi*cos(pi*xx)/(pi*xx) - sin(pi*xx)/(pi*xx*xx);
     
         end
         end
@@ -83,11 +84,11 @@ end
 
 
 % linearly increasing rho: rho=a_rho*X +b_rho
-a_rho=0.1;         % a_rho=0 for homogeneous
+a_rho=0.;         % a_rho=0 for homogeneous
 b_rho=1.;
 
 % linearly increasing mu: mu=a_mu*X +b_mu
-a_mu=0.1;          % a_mu=0 for homogeneous
+a_mu=0.;          % a_mu=0 for homogeneous
 b_mu=1.;
 
 %____________________COMPUTATION OF T AND H MATRICES______________________
